@@ -6,8 +6,9 @@ import { baseURL, instance } from "../../stores/instance";
 import ProductList from "../ProductList";
 import { Spinner } from "native-base";
 import { observer } from "mobx-react";
+import Navigation from "../Navigation";
 
-function ShopDetail({ navigation, route }) {
+function ShopDetail({ Navigation, route }) {
   if (shopStore.isLoading) return <Spinner />;
   const shop = shopStore.shops[0];
   console.log(shop);
