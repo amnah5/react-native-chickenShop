@@ -5,43 +5,54 @@ import ShopList from "../ShopList";
 import ShopDetail from "../ShopDetail";
 import CartList from "../CartList";
 import Cart from "../Icons/Cart";
+import Signin from "../authentication/Signin";
+import Signup from "../authentication/Signup";
 
-const Navigation = () => {
-  const { Navigator, Screen } = createStackNavigator();
-
+const { Navigator, Screen } = createStackNavigator();
+const RootNavigator = () => {
   return (
     <Navigator initialRouteName="Home">
-      <Screen
-        name="Home"
-        component={Home}
-        options={({ route }) => {
-          return {
-            title: Home,
-            headerRight: () => <Cart Navigation={Navigation} />,
-          };
-        }}
-      />
+      <Screen  name="Home" component={Home} options={{ headerShown: false }} />
       {/* <Screen name="ShopList" component={ShopList} /> */}
       <Screen
         name="ShopDetail"
         component={ShopDetail}
-        options={({ route }) => {
+        options={({ route, navigation }) => {
           const { shop } = route.params;
           return {
             title: shop.name,
-            headerRight: () => <Cart />,
-          };
-        }}
+            headerRight: () => <Cart navigation={navigation} />,
+            headerStyle: {flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: "#f5f5dc"}
+          
+        }}}
       />
-      <Screen name="CartList" component={CartList} />
       <Screen
         name="ShopList"
         component={ShopList}
-        options={{ title: "Choose a Shop", headerRight: () => <Cart /> }}
+        options={({ navigation }) => ({
+          title: "Shop List",
+          headerStyle: {
+            backgroundColor: "#f5f5dc",
+          headerRight: () => <Cart navigation={navigation} />,
+        }})}
       />
+<Screen name="CartList" component={CartList} />
       <Screen name="Cart" component={CartList} />
+      <Screen
+        name="Signin"
+        component={Signin}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="Signup"
+        component={Signup}
+        options={{ headerShown: false }}
+      />
     </Navigator>
   );
 };
 
-export default Navigation;
+export default RootNavigator;

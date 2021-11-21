@@ -6,6 +6,9 @@ const ProductList = ({ products }) => {
   const productList = products.map((product) => (
     <ProductItem product={product} key={product._id} />
   ));
-  return products ? <View>{productList}</View> : <View></View>;
+  // return products ? <View>{productList}</View> : <View></View>;
+  return (
+    <View>{productList}</View>
+  )
 };
 export default observer(ProductList);

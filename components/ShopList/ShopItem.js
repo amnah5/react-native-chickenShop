@@ -1,7 +1,8 @@
 import React from "react";
-// import { Image, Text } from "react-native";
+import {  Text } from "react-native";
 import { HStack, Image, Pressable } from "native-base";
-
+import { baseURL } from "../../stores/instance";
+import { observer } from "mobx-react-lite";
 const ShopItem = ({ shop, navigation }) => {
   return (
     <Pressable
@@ -13,7 +14,7 @@ const ShopItem = ({ shop, navigation }) => {
       <HStack w="100%" alignItems="center" space="3">
         <Image
           source={{
-            uri: shop.image,
+            uri: baseURL + shop.image,
           }}
           alt="image"
           style={{ width: 100, height: 100 }}

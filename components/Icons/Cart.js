@@ -9,8 +9,7 @@ import { useNavigation } from "@react-navigation/core";
 import cartStore from "../../stores/cartStore";
 import { observer } from "mobx-react";
 
-const Cart = () => {
-  const navigation = useNavigation();
+const Cart = ({ navigation }) => {
   return (
     <View>
       <VStack>
@@ -30,8 +29,14 @@ const Cart = () => {
         </Badge>
       </VStack>
       <Text>{cartStore.totalQuantity}</Text>
-      <Text onPress={() => navigation.navigate("CartList")}>
-        <Icon size={25} style={styles.cartButton} name="cart" />;
+      <Text>
+        <Icon
+          size={25}
+          style={styles.cartButton}
+          name="cart"
+          onPress={() => navigation.navigate("CartList")}
+        />
+        ;
       </Text>
     </View>
   );

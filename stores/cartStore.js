@@ -26,8 +26,15 @@ class CartStore {
   constructor() {
     makeAutoObservable(this);
   }
-
+  removeItem = (productId) => {
+    this.items = this.items.filter((item) => item.product._id !== productId);
+  };
+  checkout = () => {
+    this.items = [];
+    alert("thank you for shopping");
+  };
   addItemToCart = (product, quantity) => {
+  try {
     const foundItem = this.items.find(
       (item) => item.product._id === product._id
     );
@@ -40,8 +47,18 @@ class CartStore {
       };
     }
     this.items.push(newItem);
-  };
+  
+  } catch (error) {
+    console.log("error")
+  } 
+  }
+  get totalQuantity() {
+    let total = 0;
+    this.items.forEach((item) => (total = total + item.quantity));
+    return total;
+  }
 }
 
 const cartStore = new CartStore();
+cartStore.fetchCart;
 export default cartStore;

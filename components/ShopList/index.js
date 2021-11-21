@@ -1,14 +1,18 @@
 import { observer } from "mobx-react";
 import shopStore from "../../stores/shopStore";
-import { View } from "native-base";
+import { View, Text } from "native-base";
 import React from "react";
 import ShopItem from "./ShopItem";
-
-function ShopList() {
+import Cart from "../Icons/Cart";
+function ShopList({ navigation }) {
   const shopList = shopStore.shops.map((shop) => (
-    <ShopItem shop={shop} key={shop._id} />
+    <ShopItem navigation={navigation} shop={shop} key={shop._id} />
   ));
-  return <View>{shopList}</View>;
+  return (
+    <View>
+      <Text>{shopList}</Text>
+    </View>
+  );
 }
 
 export default observer(ShopList);

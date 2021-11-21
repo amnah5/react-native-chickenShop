@@ -1,15 +1,20 @@
 import React from "react";
-import { Center, VStack } from "native-base";
+import { Button, Center, VStack } from "native-base";
 import cartStore from "../../stores/cartStore";
 import CartItem from "./CartItem";
-const CartList = () => {
+import { observer } from "mobx-react";
+
+const CartList = ({navigation}) => {
   const cartList = cartStore.items.map((item) => (
-    <CartItem item={item} key={item.product._id} />
+    <CartItem item={item} key={item.product._id} navigation={navigation} />
   ));
   return (
     <Center>
-      <VStack space="5">{cartList}</VStack>
+      <VStack space="5">
+        {cartList}
+        <Button onPress={cartStore.checkout}>Checkout</Button>
+      </VStack>
     </Center>
   );
 };
-export default CartList;
+export default observer(CartList);
