@@ -1,61 +1,114 @@
-import React from "react";
-import { View, Text } from "react-native";
-import styles from "./styles";
-import { TextInput } from "react-native-gesture-handler";
-import { Button } from "native-base";
-import { useState } from "react";
 
-function Sign() {
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
 
-  const handleSubmit = async () => {
-    await authStore.signup(user);
-  };
-  const handlePress = () => {
-    if (authStore.user) navigation.navigate("Cart");
-    else {
-      Alert.alert(
-        "Signin",
-        "You need to sign in before seeing the cart",
-        [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-          { text: "Signin", onPress: () => navigation.navigate("Signin") },
-        ],
-        { cancelable: false }
-      );
-    }
-  };
-  const Signup = ({ navigation }) => {
-    return (
-      <View>
-        <Text
-          onPress={() => navigation.navigate("Signup")}
-          style={styles.AuthOther}
-        >
-          Click here to register!
-        </Text>
-        <Text style={styles.authTitle}>Signup</Text>
-        <TextInput
-          onChangeText={(username) => setUser({ ...user, username })}
-          style={styles.authTextInput}
-          placeholder="Username"
-        />
-        <TextInput
-          onChangeText={(password) => setUser({ ...user, password })}
-          style={styles.authTextInput}
-          placeholder="Password"
-        />
-        <Button onPress={handleSubmit}>Signup</Button>
-      </View>
-    );
-  };
+import React, { useState } from "react";
+import {
+  Box,
+  Text,
+  Heading,
+  VStack,
+  FormControl,
+  Input,
+  Link,
+  Button,
+  HStack,
+  Center,
+  useToast,
+} from "native-base"
+import authStore from "../../stores/authStore";
+
+const Signup = ({ navigation }) => {
+  const toast = useToast()
+    const [user, setUser] = useState({
+        username: "",
+        password: "",
+    });
+
+    const handleSubmit = () => {
+        authStore.signup(user, navigation, toast);
+        navigation.replace("Home");
+    };
+  return (
+    <Center flex={1} px="3">
+    <Box safeArea p="2" py="8" w="90%" maxW="290">
+      <Heading
+        size="lg"
+        fontWeight="600"
+        color="coolGray.800"
+        _dark={{
+          color: "warmGray.50",
+        }}
+      >
+        Welcome
+      </Heading>
+      <Heading
+        mt="1"
+        _dark={{
+          color: "warmGray.200",
+        }}
+        color="coolGray.600"
+        fontWeight="medium"
+        size="xs"
+      >
+        Sign up to continue!
+      </Heading>
+
+      <VStack space={3} mt="5">
+        <FormControl>
+          <FormControl.Label>Username</FormControl.Label>
+          <Input 
+          onChangeText={(username) => setUser({...user, username})}
+          />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Password</FormControl.Label>
+          <Input type="password"
+          onChangeText={(password) => setUser({...user, password})}
+           />
+          <Link
+            _text={{
+              fontSize: "xs",
+              fontWeight: "500",
+              color: "indigo.500",
+            }}
+            alignSelf="flex-end"
+            mt="1"
+          >
+            Forget Password?
+          </Link>
+        </FormControl>
+        <Button 
+        mt="2" 
+        colorScheme="indigo" 
+        onPress={handleSubmit}
+        backgroundColor="#0000ff">
+          Sign up
+        </Button>
+        <HStack mt="6" justifyContent="center">
+          <Text
+            fontSize="sm"
+            color="coolGray.600"
+            _dark={{
+              color: "warmGray.200",
+            }}
+          >
+            I already have an account.
+          </Text>
+          <Link
+            _text={{
+              color: "indigo.500",
+              fontWeight: "medium",
+              fontSize: "sm",
+            }}
+            onPress={() => navigation.navigate("Signin")}
+          >
+            Sign in
+          </Link>
+        </HStack>
+      </VStack>
+      </Box>
+      </Center>
+    
+  )
 }
 
-export default Sign;
+export default Signup;

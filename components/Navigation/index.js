@@ -12,7 +12,7 @@ const { Navigator, Screen } = createStackNavigator();
 const RootNavigator = () => {
   return (
     <Navigator initialRouteName="Home">
-      <Screen  name="Home" component={Home} options={{ headerShown: false }} />
+      <Screen name="Home" component={Home} options={{ headerShown: false }} />
       {/* <Screen name="ShopList" component={ShopList} /> */}
       <Screen
         name="ShopDetail"
@@ -22,12 +22,14 @@ const RootNavigator = () => {
           return {
             title: shop.name,
             headerRight: () => <Cart navigation={navigation} />,
-            headerStyle: {flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: "#f5f5dc"}
-          
-        }}}
+            headerStyle: {
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#f5f5dc",
+            },
+          };
+        }}
       />
       <Screen
         name="ShopList"
@@ -36,21 +38,14 @@ const RootNavigator = () => {
           title: "Shop List",
           headerStyle: {
             backgroundColor: "#f5f5dc",
-          headerRight: () => <Cart navigation={navigation} />,
-        }})}
+            headerRight: () => <Cart navigation={navigation} />,
+          },
+        })}
       />
-<Screen name="CartList" component={CartList} />
+      <Screen name="CartList" component={CartList} />
       <Screen name="Cart" component={CartList} />
-      <Screen
-        name="Signin"
-        component={Signin}
-        options={{ headerShown: false }}
-      />
-      <Screen
-        name="Signup"
-        component={Signup}
-        options={{ headerShown: false }}
-      />
+      <Screen name="Signin" component={Signin} />
+      <Screen name="Signup" component={Signup} />
     </Navigator>
   );
 };
